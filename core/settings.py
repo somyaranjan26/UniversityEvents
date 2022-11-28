@@ -16,7 +16,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-# Application definition
+# ? Application definition
 
 INSTALLED_APPS = [
     "admin_interface",
@@ -68,7 +68,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 
-# Database
+# ! Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
@@ -78,7 +78,7 @@ DATABASES = {
     }
 }
 
-# Djongo For Mongo
+# ! Djongo For Mongo
 
 # DATABASES = {
 #     'default': {
@@ -94,7 +94,8 @@ DATABASES = {
 # }
 
 
-# PostreSQL
+# ! PostreSQL
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
@@ -106,7 +107,7 @@ DATABASES = {
 #     }
 # }
 
-# Password validation
+# ? Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -125,7 +126,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
+# ? Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
@@ -138,7 +139,27 @@ USE_L10N = True
 
 USE_TZ = True
 
+X_FRAME_OPTIONS = "SAMEORIGIN"
+SILENCED_SYSTEM_CHECKS = ["security.W019"]
+
+fieldsets = [
+    ("Section title", {
+        "classes": ("collapse", "expanded"),
+        "fields": (...),
+    }),
+]
+
 FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800   # 50 MB 
+
+# ! Local Storage
+
+# STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# ! S3 Setup
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
@@ -149,18 +170,9 @@ AWS_STORAGE_BUCKET_NAME = 'rowan-event-inventory'
 AWS_DEFAULT_ACL = 'public-read'
 
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-# AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 
 AWS_LOCATION = 'meida'
 
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
-X_FRAME_OPTIONS = "SAMEORIGIN"
-SILENCED_SYSTEM_CHECKS = ["security.W019"]
 
-fieldsets = [
-    ("Section title", {
-        "classes": ("collapse", "expanded"),
-        "fields": (...),
-    }),
-]
